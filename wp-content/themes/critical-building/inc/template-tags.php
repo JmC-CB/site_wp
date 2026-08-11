@@ -71,7 +71,7 @@ function cb_render_contact_form() {
 function cb_render_footer_cta() {
 	?>
 	<section class="cb-section cb-cta" id="contact-form">
-		<div class="cb-container cb-container--narrow">
+		<div class="cb-container">
 			<h2 class="cb-heading-numbered"><span>Nous contacter</span></h2>
 			<p class="cb-cta__intro">Envoyez-nous un message, notre équipe vous répondra au plus vite.</p>
 			<?php cb_render_contact_form(); ?>

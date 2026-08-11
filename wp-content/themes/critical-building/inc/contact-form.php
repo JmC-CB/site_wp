@@ -9,13 +9,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Version de la structure du formulaire (bump = re-synchronise le markup
+ * même si le formulaire existe déjà, sans toucher aux réglages mail personnalisés).
+ */
+define( 'CB_CONTACT_FORM_MARKUP_VERSION', '2' );
+
+function cb_contact_form_markup() {
+	return '<div class="cb-form-grid">
+<div class="cb-form-cell">[text* nom-prenom placeholder "Nom Prénom"]</div>
+<div class="cb-form-cell">[text entreprise placeholder "Entreprise"]</div>
+<div class="cb-form-cell">[tel telephone placeholder "Téléphone"]</div>
+<div class="cb-form-cell">[email* email placeholder "Email"]</div>
+<div class="cb-form-cell cb-form-cell--full">[textarea message placeholder "Message"]</div>
+</div>
+<div class="cb-form-submit">[submit "Envoyer"]</div>';
+}
+
 function cb_create_contact_form() {
 	if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
 		return;
 	}
 
-	$existing = get_option( 'cb_contact_form_id' );
-	if ( $existing && get_post( $existing ) ) {
+	$existing_id = get_option( 'cb_contact_form_id' );
+
+	// Le formulaire existe déjà : on resynchronise juste le markup si sa version a changé.
+	if ( $existing_id && get_post( $existing_id ) ) {
+		if ( get_option( 'cb_contact_form_markup_version' ) !== CB_CONTACT_FORM_MARKUP_VERSION ) {
+			$existing_form = WPCF7_ContactForm::get_instance( $existing_id );
+			if ( $existing_form ) {
+				$existing_form->set_properties( array( 'form' => cb_contact_form_markup() ) );
+				$existing_form->save();
+				update_option( 'cb_contact_form_markup_version', CB_CONTACT_FORM_MARKUP_VERSION );
+			}
+		}
 		return;
 	}
 
@@ -28,23 +55,6 @@ function cb_create_contact_form() {
 
 	$contact_form = WPCF7_ContactForm::get_template( array( 'title' => 'Formulaire de contact' ) );
 
-	$form = '<div class="cb-form-row">
-[text* nom-prenom placeholder "Nom Prénom"]
-</div>
-<div class="cb-form-row">
-[text entreprise placeholder "Entreprise"]
-</div>
-<div class="cb-form-row cb-form-row--half">
-[tel telephone placeholder "Téléphone"]
-[email* email placeholder "Email"]
-</div>
-<div class="cb-form-row">
-[textarea message placeholder "Message"]
-</div>
-<div class="cb-form-row cb-form-row--submit">
-[submit "Envoyer"]
-</div>';
-
 	$mail_recipient = function_exists( 'get_field' ) ? get_field( 'email', 'option' ) : '';
 	if ( empty( $mail_recipient ) ) {
 		$mail_recipient = 'info@criticalbuilding.fr';
@@ -52,7 +62,7 @@ function cb_create_contact_form() {
 
 	$properties = $contact_form->get_properties();
 
-	$properties['form'] = $form;
+	$properties['form'] = cb_contact_form_markup();
 
 	$properties['mail']['subject']    = 'Nouveau message depuis criticalbuilding.fr : [nom-prenom]';
 	$properties['mail']['sender']     = 'Site Critical Building <wordpress@criticalbuilding.fr>';
@@ -71,6 +81,7 @@ function cb_create_contact_form() {
 	$contact_form->save();
 
 	update_option( 'cb_contact_form_id', $contact_form->id() );
+	update_option( 'cb_contact_form_markup_version', CB_CONTACT_FORM_MARKUP_VERSION );
 }
 add_action( 'after_switch_theme', 'cb_create_contact_form' );
 add_action( 'admin_init', 'cb_create_contact_form' );
