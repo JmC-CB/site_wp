@@ -33,6 +33,7 @@ function cb_icon( $name ) {
 		'linkedin' => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>',
 		'briefcase' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
 		'close' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+		'file' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>',
 	);
 	return isset( $icons[ $name ] ) ? $icons[ $name ] : '';
 }
@@ -61,6 +62,18 @@ function cb_render_contact_form() {
 		echo do_shortcode( '[contact-form-7 id="' . intval( $form_id ) . '" title="Formulaire de contact"]' );
 	} else {
 		echo do_shortcode( '[contact-form-7 title="Formulaire de contact"]' );
+	}
+}
+
+/**
+ * Affiche la variante du formulaire propre à la page Contact (labels visibles, inputs soulignés).
+ */
+function cb_render_contact_form_page() {
+	$form_id = get_option( 'cb_contact_form_page_id' );
+	if ( $form_id && function_exists( 'wpcf7_contact_form' ) && wpcf7_contact_form( $form_id ) ) {
+		echo do_shortcode( '[contact-form-7 id="' . intval( $form_id ) . '" title="Formulaire de contact (page Contact)"]' );
+	} else {
+		echo do_shortcode( '[contact-form-7 title="Formulaire de contact (page Contact)"]' );
 	}
 }
 

@@ -44,18 +44,24 @@ $realisations = new WP_Query( array(
 							<?php if ( $livraison ) : ?>Livraison : <?php echo esc_html( $livraison ); ?><?php endif; ?>
 						</div>
 					</div>
-
-					<?php if ( $galerie ) : ?>
-					<div class="cb-lightbox" id="real-<?php the_ID(); ?>" hidden>
-						<?php foreach ( $galerie as $img_id ) : ?>
-						<img src="<?php echo esc_url( wp_get_attachment_image_url( $img_id, 'large' ) ); ?>" alt="">
-						<?php endforeach; ?>
-					</div>
-					<?php endif; ?>
 				</div>
 				<h5 class="cb-real-card__title"><?php the_title(); ?></h5>
 				<div class="cb-real-card__subtitle"><?php echo esc_html( $nom_client ); ?></div>
 			</div>
+
+			<?php if ( $galerie ) : ?>
+			<!-- Rendue en dehors de .cb-real-card (qui a overflow:hidden) pour que la modale plein écran ne soit pas rognée -->
+			<div class="cb-lightbox" id="real-<?php the_ID(); ?>" hidden>
+				<?php foreach ( $galerie as $img_id ) :
+					$caption = wp_get_attachment_caption( $img_id );
+				?>
+				<div class="cb-lightbox__slide">
+					<img src="<?php echo esc_url( wp_get_attachment_image_url( $img_id, 'large' ) ); ?>" alt="">
+					<?php if ( $caption ) : ?><p class="cb-lightbox__caption"><?php echo esc_html( $caption ); ?></p><?php endif; ?>
+				</div>
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
 			<?php endwhile; wp_reset_postdata(); else : ?>
 			<p><?php esc_html_e( 'Aucune réalisation publiée pour le moment.', 'critical-building' ); ?></p>
 			<?php endif; ?>

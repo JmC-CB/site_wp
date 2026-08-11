@@ -141,9 +141,17 @@ function cb_register_acf_fields() {
 		'key'    => 'group_cb_metier',
 		'title'  => 'Contenu page métier',
 		'fields' => array(
-			array( 'key' => 'field_cb_metier_intro', 'name' => 'intro_heading', 'label' => 'Titre d’introduction', 'type' => 'text' ),
-			array( 'key' => 'field_cb_metier_image', 'name' => 'card_image', 'label' => 'Image (bannière + carte accueil)', 'type' => 'image', 'return_format' => 'id' ),
+			array( 'key' => 'field_cb_metier_hero_image', 'name' => 'hero_image', 'label' => 'Image du bandeau d’en-tête', 'type' => 'image', 'return_format' => 'id' ),
+			array( 'key' => 'field_cb_metier_image', 'name' => 'card_image', 'label' => 'Image de la carte accueil (« Nos métiers »)', 'type' => 'image', 'return_format' => 'id' ),
 			array( 'key' => 'field_cb_metier_teaser', 'name' => 'card_teaser', 'label' => 'Accroche courte (carte accueil)', 'type' => 'textarea', 'rows' => 2 ),
+
+			array( 'key' => 'field_cb_metier_intro', 'name' => 'intro_heading', 'label' => 'Titre du 1er bloc', 'type' => 'text' ),
+			array( 'key' => 'field_cb_metier_intro_texte', 'name' => 'intro_texte', 'label' => 'Texte du 1er bloc', 'type' => 'wysiwyg', 'media_upload' => 0 ),
+			array( 'key' => 'field_cb_metier_intro_image', 'name' => 'intro_image', 'label' => 'Image du 1er bloc (pleine largeur, sous le texte)', 'type' => 'image', 'return_format' => 'id' ),
+
+			array( 'key' => 'field_cb_metier_champs_heading', 'name' => 'champs_heading', 'label' => 'Titre du 2e bloc', 'type' => 'text', 'default_value' => 'Champs d’intervention' ),
+			array( 'key' => 'field_cb_metier_champs_texte', 'name' => 'champs_texte', 'label' => 'Texte du 2e bloc', 'type' => 'wysiwyg', 'media_upload' => 0 ),
+			array( 'key' => 'field_cb_metier_champs_image', 'name' => 'champs_image', 'label' => 'Image du 2e bloc (à côté du texte)', 'type' => 'image', 'return_format' => 'id' ),
 		),
 		'location' => array(
 			array(
