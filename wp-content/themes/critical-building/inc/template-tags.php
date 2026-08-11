@@ -21,6 +21,23 @@ function cb_option( $field, $fallback = '' ) {
 }
 
 /**
+ * Petit helper de traduction inline pour les chaînes d'interface codées en dur
+ * dans les templates (boutons, titres de sections partagées, pied de page...).
+ * Le contenu éditorial (pages, réalisations, offres) passe lui par de vraies
+ * traductions Polylang (pages EN dédiées) — cb_l10n() ne sert qu'à la "chrome"
+ * du thème, sur les pages où une version anglaise existe.
+ */
+function cb_l10n( $fr, $en ) {
+	if ( function_exists( 'pll_current_language' ) && 'en' === pll_current_language() ) {
+		return $en;
+	}
+	return $fr;
+}
+function cb_l10n_e( $fr, $en ) {
+	echo esc_html( cb_l10n( $fr, $en ) );
+}
+
+/**
  * Icônes SVG inline (currentColor) utilisées dans le thème.
  */
 function cb_icon( $name ) {
@@ -133,7 +150,8 @@ function cb_render_map( $markers = null, $label = 'Carte' ) {
  * Affiche le formulaire Contact Form 7 du site (shortcode).
  */
 function cb_render_contact_form() {
-	$form_id = get_option( 'cb_contact_form_id' );
+	$is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+	$form_id = get_option( $is_en ? 'cb_contact_form_id_en' : 'cb_contact_form_id' );
 	if ( $form_id && function_exists( 'wpcf7_contact_form' ) && wpcf7_contact_form( $form_id ) ) {
 		echo do_shortcode( '[contact-form-7 id="' . intval( $form_id ) . '" title="Formulaire de contact"]' );
 	} else {
@@ -145,7 +163,8 @@ function cb_render_contact_form() {
  * Affiche la variante du formulaire propre à la page Contact (labels visibles, inputs soulignés).
  */
 function cb_render_contact_form_page() {
-	$form_id = get_option( 'cb_contact_form_page_id' );
+	$is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+	$form_id = get_option( $is_en ? 'cb_contact_form_page_id_en' : 'cb_contact_form_page_id' );
 	if ( $form_id && function_exists( 'wpcf7_contact_form' ) && wpcf7_contact_form( $form_id ) ) {
 		echo do_shortcode( '[contact-form-7 id="' . intval( $form_id ) . '" title="Formulaire de contact (page Contact)"]' );
 	} else {
@@ -161,8 +180,8 @@ function cb_render_footer_cta() {
 	?>
 	<section class="cb-section cb-cta" id="contact-form">
 		<div class="cb-container">
-			<h2 class="cb-heading-numbered"><span>Nous contacter</span></h2>
-			<p class="cb-cta__intro">Envoyez-nous un message, notre équipe vous répondra au plus vite.</p>
+			<h2 class="cb-heading-numbered"><span><?php cb_l10n_e( 'Nous contacter', 'Contact us' ); ?></span></h2>
+			<p class="cb-cta__intro"><?php cb_l10n_e( 'Envoyez-nous un message, notre équipe vous répondra au plus vite.', 'Send us a message, our team will get back to you as soon as possible.' ); ?></p>
 			<?php cb_render_contact_form(); ?>
 		</div>
 	</section>

@@ -13,6 +13,7 @@ $slides = array_map( function ( $id ) {
 	return array( 'image' => $id );
 }, cb_get_content_gallery_ids( get_the_ID() ) );
 
+$hero_titre      = get_field( 'hero_titre' );
 $qsn_heading     = get_field( 'qsn_heading' ) ?: 'qui sommes-nous ?';
 $qsn_texte       = get_field( 'qsn_texte' );
 $metiers_heading = get_field( 'metiers_heading' ) ?: 'nos métiers';
@@ -48,16 +49,16 @@ $metier_pages = get_posts( array(
 	</div>
 	<div class="cb-hero__overlay"></div>
 	<div class="cb-hero__content">
-		<h1 class="cb-hero__title">Une expertise<br>unique dédiée aux<br>infrastructures<br>techniques sensibles</h1>
+		<h1 class="cb-hero__title"><?php echo $hero_titre ? nl2br( esc_html( $hero_titre ) ) : ( ( function_exists( 'pll_current_language' ) && 'en' === pll_current_language() ) ? 'Unique expertise<br>dedicated to<br>sensitive technical<br>infrastructure' : 'Une expertise<br>unique dédiée aux<br>infrastructures<br>techniques sensibles' ); ?></h1>
 	</div>
 	<?php if ( $slides && count( $slides ) > 1 ) : ?>
 	<div class="cb-hero__nav">
-		<button class="cb-hero__arrow cb-hero__arrow--prev" aria-label="Photo précédente"><?php echo cb_icon( 'arrow' ); ?></button>
-		<button class="cb-hero__arrow cb-hero__arrow--next" aria-label="Photo suivante"><?php echo cb_icon( 'arrow' ); ?></button>
+		<button class="cb-hero__arrow cb-hero__arrow--prev" aria-label="<?php echo esc_attr( cb_l10n( 'Photo précédente', 'Previous photo' ) ); ?>"><?php echo cb_icon( 'arrow' ); ?></button>
+		<button class="cb-hero__arrow cb-hero__arrow--next" aria-label="<?php echo esc_attr( cb_l10n( 'Photo suivante', 'Next photo' ) ); ?>"><?php echo cb_icon( 'arrow' ); ?></button>
 	</div>
 	<div class="cb-hero__dots">
 		<?php foreach ( $slides as $i => $slide ) : ?>
-		<button class="cb-hero__dot<?php echo 0 === $i ? ' is-active' : ''; ?>" data-slide="<?php echo esc_attr( $i ); ?>" aria-label="Aller à la photo <?php echo esc_attr( $i + 1 ); ?>"></button>
+		<button class="cb-hero__dot<?php echo 0 === $i ? ' is-active' : ''; ?>" data-slide="<?php echo esc_attr( $i ); ?>" aria-label="<?php echo esc_attr( cb_l10n( 'Aller à la photo ', 'Go to photo ' ) . ( $i + 1 ) ); ?>"></button>
 		<?php endforeach; ?>
 	</div>
 	<?php endif; ?>
@@ -72,7 +73,7 @@ $metier_pages = get_posts( array(
 		<div class="cb-qsn__body">
 			<?php echo apply_filters( 'the_content', $qsn_texte ); ?>
 			<?php if ( $profil_page ) : ?>
-			<a class="cb-btn cb-btn--mt" href="<?php echo esc_url( get_permalink( $profil_page ) ); ?>">En savoir plus</a>
+			<a class="cb-btn cb-btn--mt" href="<?php echo esc_url( get_permalink( $profil_page ) ); ?>"><?php cb_l10n_e( 'En savoir plus', 'Learn more' ); ?></a>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -96,7 +97,7 @@ $metier_pages = get_posts( array(
 				<div class="cb-metier-card__overlay">
 					<h3><?php echo esc_html( get_the_title( $mp ) ); ?></h3>
 					<p><?php echo esc_html( $teaser ); ?></p>
-					<span class="cb-btn-plus"><?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label">En savoir plus</span></span>
+					<span class="cb-btn-plus"><?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label"><?php cb_l10n_e( 'En savoir plus', 'Learn more' ); ?></span></span>
 				</div>
 			</a>
 			<?php endforeach; ?>
@@ -117,7 +118,7 @@ $metier_pages = get_posts( array(
 				<div class="cb-client-card__body">
 					<h3><?php echo esc_html( $block['titre'] ); ?></h3>
 					<p><?php echo esc_html( $block['texte'] ); ?></p>
-					<span class="cb-btn-plus"><?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label">En savoir plus</span></span>
+					<span class="cb-btn-plus"><?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label"><?php cb_l10n_e( 'En savoir plus', 'Learn more' ); ?></span></span>
 				</div>
 			</a>
 			<?php endforeach; endif; ?>
@@ -128,7 +129,7 @@ $metier_pages = get_posts( array(
 		<?php endif; ?>
 
 		<div class="cb-clients__cta">
-			<a class="cb-btn cb-btn--inverse" href="<?php echo esc_url( $realisations_page ? get_permalink( $realisations_page ) : home_url( '/realisations/' ) ); ?>">Nos réalisations</a>
+			<a class="cb-btn cb-btn--inverse" href="<?php echo esc_url( $realisations_page ? get_permalink( $realisations_page ) : home_url( '/realisations/' ) ); ?>"><?php cb_l10n_e( 'Nos réalisations', 'Our projects' ); ?></a>
 		</div>
 	</div>
 </section>

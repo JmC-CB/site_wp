@@ -12,7 +12,7 @@
 <body <?php body_class( is_front_page() ? 'cb-home' : '' ); ?>>
 <?php wp_body_open(); ?>
 
-<a class="cb-skip-link screen-reader-text" href="#cb-content">Aller au contenu</a>
+<a class="cb-skip-link screen-reader-text" href="#cb-content"><?php cb_l10n_e( 'Aller au contenu', 'Skip to content' ); ?></a>
 
 <header class="cb-header" id="cb-header">
 	<div class="cb-container cb-header__inner">
@@ -20,7 +20,7 @@
 			<img src="<?php echo esc_url( CB_THEME_URI . '/assets/img/logo-critical-building.png' ); ?>" alt="<?php bloginfo( 'name' ); ?>">
 		</a>
 
-		<nav class="cb-nav" id="cb-nav" aria-label="Menu principal">
+		<nav class="cb-nav" id="cb-nav" aria-label="<?php echo esc_attr( cb_l10n( 'Menu principal', 'Main menu' ) ); ?>">
 			<?php
 			wp_nav_menu( array(
 				'theme_location' => 'primary',
@@ -33,7 +33,7 @@
 
 		<button type="button" class="cb-nav-toggle" id="cb-nav-toggle" aria-expanded="false" aria-controls="cb-nav">
 			<span></span><span></span><span></span>
-			<span class="screen-reader-text">Menu</span>
+			<span class="screen-reader-text"><?php cb_l10n_e( 'Menu', 'Menu' ); ?></span>
 		</button>
 	</div>
 </header>

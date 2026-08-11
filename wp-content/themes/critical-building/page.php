@@ -28,7 +28,7 @@ get_header();
 				<div class="cb-metier-card__overlay">
 					<h3><?php echo esc_html( get_the_title( $child ) ); ?></h3>
 					<?php if ( $teaser ) : ?><p><?php echo esc_html( $teaser ); ?></p><?php endif; ?>
-					<span class="cb-btn-plus"><?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label">En savoir plus</span></span>
+					<span class="cb-btn-plus"><?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label"><?php cb_l10n_e( 'En savoir plus', 'Learn more' ); ?></span></span>
 				</div>
 			</a>
 			<?php endforeach; ?>

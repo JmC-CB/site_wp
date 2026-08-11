@@ -17,17 +17,17 @@ while ( have_posts() ) : the_post();
 
 			<div class="cb-contact-coords">
 				<div class="cb-contact-coords__item">
-					<div class="cb-contact-coords__label">Siège Paris</div>
+					<div class="cb-contact-coords__label"><?php cb_l10n_e( 'Siège Paris', 'Paris Head Office' ); ?></div>
 					<div class="cb-contact-coords__value"><?php echo nl2br( esc_html( cb_option( 'siege_adresse', "3Bis rue du Docteur Soubise\n92260 Fontenay-aux-Roses" ) ) ); ?></div>
 				</div>
 				<?php if ( $lyon ) : ?>
 				<div class="cb-contact-coords__item">
-					<div class="cb-contact-coords__label">Agence Lyon</div>
+					<div class="cb-contact-coords__label"><?php cb_l10n_e( 'Agence Lyon', 'Lyon Office' ); ?></div>
 					<div class="cb-contact-coords__value"><?php echo nl2br( esc_html( $lyon ) ); ?></div>
 				</div>
 				<?php endif; ?>
 				<div class="cb-contact-coords__item">
-					<div class="cb-contact-coords__label">Téléphone</div>
+					<div class="cb-contact-coords__label"><?php cb_l10n_e( 'Téléphone', 'Phone' ); ?></div>
 					<div class="cb-contact-coords__value"><a href="<?php echo esc_url( cb_tel_href( cb_option( 'telephone', '+33 1 78 16 54 16' ) ) ); ?>"><?php echo esc_html( cb_option( 'telephone', '+33 1 78 16 54 16' ) ); ?></a></div>
 				</div>
 				<div class="cb-contact-coords__item">
@@ -60,7 +60,7 @@ while ( have_posts() ) : the_post();
 
 <section class="cb-contact-map-section">
 	<div class="cb-container">
-		<?php cb_render_map( null, 'Carte des bureaux Critical Building' ); ?>
+		<?php cb_render_map( null, cb_l10n( 'Carte des bureaux Critical Building', 'Map of Critical Building offices' ) ); ?>
 	</div>
 </section>
 

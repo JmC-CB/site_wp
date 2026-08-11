@@ -542,6 +542,8 @@ h1, h2, h3, h4, h5, h6 {
 .wpcf7-mail-sent-ok { border-color: #2e7d32 !important; color: #2e7d32; }
 .wpcf7-validation-errors, .wpcf7-mail-sent-ng { border-color: var(--cb-red) !important; color: var(--cb-red); }
 
+.captcha-image { border: 1px solid var(--cb-gray-border); width: 100%; }
+
 /* ---------- 15. CTA "nous contacter" (pied de la plupart des pages) ---------- */
 .cb-cta { background: #fff; text-align: center; }
 .cb-cta .cb-heading-numbered { display: block; margin-bottom: 20px; text-align: left; }

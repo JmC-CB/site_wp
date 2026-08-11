@@ -65,3 +65,20 @@ function cb_register_post_types() {
 	) );
 }
 add_action( 'init', 'cb_register_post_types' );
+
+/**
+ * Rend les CPT et la taxonomie traduisibles par Polylang (déclaration en code,
+ * comme le reste du thème — persiste même si les réglages Polylang sont
+ * réinitialisés). Les réalisations et offres d'emploi restent pour l'instant
+ * en français uniquement (aucune traduction anglaise créée), mais sont prêtes
+ * à être traduites depuis l'admin dès qu'une traduction dédiée sera faite.
+ */
+add_filter( 'pll_get_post_types', function ( $post_types ) {
+	$post_types['realisation']  = 'realisation';
+	$post_types['offre_emploi'] = 'offre_emploi';
+	return $post_types;
+} );
+add_filter( 'pll_get_taxonomies', function ( $taxonomies ) {
+	$taxonomies['profil_client'] = 'profil_client';
+	return $taxonomies;
+} );

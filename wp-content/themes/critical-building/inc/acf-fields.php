@@ -90,6 +90,14 @@ function cb_register_acf_fields() {
 				'type'    => 'message',
 				'message' => 'Ajoutez un bloc « Galerie » dans le contenu de cette page (ci-dessus) pour gérer les photos du diaporama d’accueil : autant de photos que vous voulez, réordonnables au glisser-déposer.',
 			),
+			array(
+				'key'          => 'field_cb_hero_titre',
+				'name'         => 'hero_titre',
+				'label'        => 'Titre du slider hero',
+				'type'         => 'textarea',
+				'rows'         => 4,
+				'instructions' => 'Une ligne = un retour à la ligne affiché sur le slider (4 lignes courtes recommandées).',
+			),
 
 			array( 'key' => 'field_cb_qsn_heading', 'name' => 'qsn_heading', 'label' => 'Titre section « Qui sommes-nous »', 'type' => 'text', 'default_value' => 'qui sommes-nous ?' ),
 			array( 'key' => 'field_cb_qsn_texte', 'name' => 'qsn_texte', 'label' => 'Texte « Qui sommes-nous »', 'type' => 'wysiwyg', 'media_upload' => 0 ),

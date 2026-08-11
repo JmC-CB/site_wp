@@ -27,7 +27,7 @@
 				<?php if ( $linkedin ) : ?>
 				<li>
 					<a class="cb-footer__linkedin" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener">
-						<?php echo cb_icon( 'linkedin' ); ?> <span>Suivez nous</span>
+						<?php echo cb_icon( 'linkedin' ); ?> <span><?php cb_l10n_e( 'Suivez nous', 'Follow us' ); ?></span>
 					</a>
 				</li>
 				<?php endif; ?>
@@ -35,8 +35,8 @@
 		</div>
 
 		<div class="cb-footer__col">
-			<h2 class="footer-heading">plan du site</h2>
-			<nav aria-label="Plan du site">
+			<h2 class="footer-heading"><?php cb_l10n_e( 'plan du site', 'sitemap' ); ?></h2>
+			<nav aria-label="<?php echo esc_attr( cb_l10n( 'Plan du site', 'Sitemap' ) ); ?>">
 				<?php
 				wp_nav_menu( array(
 					'theme_location' => 'footer',
@@ -53,7 +53,11 @@
 	<div class="cb-footer__bottom">
 		<div class="cb-container cb-footer__bottom-inner">
 			<span><?php echo esc_html( cb_option( 'copyright_text', '© ' . date( 'Y' ) . ' Critical Building. Tous droits réservés.' ) ); ?></span>
-			<a href="<?php echo esc_url( home_url( '/mentions-legales/' ) ); ?>">Mentions légales</a>
+			<?php
+			$mentions_id  = function_exists( 'pll_current_language' ) && 'en' === pll_current_language() ? pll_get_post( 39, 'en' ) : 39;
+			$mentions_url = $mentions_id ? get_permalink( $mentions_id ) : home_url( '/mentions-legales/' );
+			?>
+			<a href="<?php echo esc_url( $mentions_url ); ?>"><?php cb_l10n_e( 'Mentions légales', 'Legal notice' ); ?></a>
 		</div>
 	</div>
 </footer>
