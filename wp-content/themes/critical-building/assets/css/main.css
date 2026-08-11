@@ -498,6 +498,73 @@ h1, h2, h3, h4, h5, h6 {
 .cb-footer__bottom-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 13px; color: #ffffff; }
 .cb-footer__bottom-inner a:hover { text-decoration: underline; }
 
+/* ---------- 16b. Page Profil ---------- */
+.cb-profil-hero {
+	position: relative; height: 583px;
+	background-color: var(--cb-navy); background-size: cover; background-position: 50%;
+	display: flex; align-items: flex-end; justify-content: center;
+	padding-bottom: 60px; color: #fff;
+}
+.cb-profil-hero__title {
+	color: #fff; text-transform: uppercase; font-weight: 400; text-align: left;
+	font-size: 43px; line-height: 50px; letter-spacing: -.645px; margin: 0;
+}
+
+.cb-profil-intro { padding: 50px 0 40px; }
+.cb-profil-intro__row { margin-bottom: 20px; }
+.cb-profil-intro__row:last-child { margin-bottom: 0; }
+.cb-profil-intro__txt {
+	color: #000; font-family: var(--cb-font-heading); font-weight: 400;
+	font-size: 24px; line-height: 25px; letter-spacing: 2px;
+}
+.cb-profil-intro__txt--blue { color: var(--cb-blue); }
+
+.cb-profil-vm { padding-top: 100px; }
+.cb-profil-vm__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cb-profil-vm__card { position: relative; overflow: hidden; min-height: 460px; }
+.cb-profil-vm__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cb-profil-vm__card::after {
+	content: ""; position: absolute; inset: 0; z-index: 1;
+	background: var(--cb-blue); opacity: 0;
+	transition: opacity .3s ease;
+}
+.cb-profil-vm__card:hover::after,
+.cb-profil-vm__card:focus-within::after { opacity: .85; }
+.cb-profil-vm__overlay {
+	position: relative; z-index: 2; height: 100%;
+	display: flex; flex-direction: column; align-items: center; justify-content: center;
+	text-align: center; padding: 40px;
+}
+.cb-profil-vm__title {
+	color: #fff; text-shadow: 2px 2px 6px rgba(0,0,0,.2);
+	font-family: var(--cb-font-heading); font-weight: 400; text-transform: uppercase;
+	font-size: 38px; line-height: 43px; letter-spacing: -.645px; margin: 0 0 22px;
+}
+.cb-profil-vm__text {
+	display: none; flex-direction: column; align-items: center; gap: 14px;
+	width: 70%; opacity: 0; transition: opacity .2s ease;
+}
+.cb-profil-vm__text p {
+	color: #fff; font-family: var(--cb-font-body); font-size: 16px; line-height: 19px; letter-spacing: -.24px; margin: 0;
+}
+.cb-profil-vm__title--inline { display: none; }
+.cb-profil-vm__card:hover .cb-profil-vm__overlay > .cb-profil-vm__title,
+.cb-profil-vm__card:focus-within .cb-profil-vm__overlay > .cb-profil-vm__title { display: none; }
+.cb-profil-vm__card:hover .cb-profil-vm__text,
+.cb-profil-vm__card:focus-within .cb-profil-vm__text { display: flex; opacity: 1; }
+.cb-profil-vm__card:hover .cb-profil-vm__title--inline,
+.cb-profil-vm__card:focus-within .cb-profil-vm__title--inline { display: block; }
+
+@media (max-width: 767px) {
+	.cb-profil-hero { height: 380px; padding-bottom: 30px; }
+	.cb-profil-vm__grid { grid-template-columns: 1fr; }
+	/* Pas de survol tactile fiable : le texte et le filtre bleu restent affichés en permanence */
+	.cb-profil-vm__card::after { opacity: .85; }
+	.cb-profil-vm__overlay > .cb-profil-vm__title { display: none; }
+	.cb-profil-vm__text { display: flex; opacity: 1; width: 90%; }
+	.cb-profil-vm__title--inline { display: block; }
+}
+
 /* ---------- 17. Animations ---------- */
 .cb-reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .cb-reveal.is-visible { opacity: 1; transform: translateY(0); }

@@ -102,6 +102,39 @@ function cb_register_acf_fields() {
 	) );
 
 	/* -----------------------------------------------------------
+	 * Page Profil
+	 * --------------------------------------------------------- */
+	acf_add_local_field_group( array(
+		'key'    => 'group_cb_profil',
+		'title'  => 'Contenu page Profil',
+		'fields' => array(
+			array(
+				'key'          => 'field_cb_profil_intro',
+				'name'         => 'intro_lignes',
+				'label'        => 'Lignes d’introduction (« qui sommes-nous »)',
+				'type'         => 'repeater',
+				'layout'       => 'block',
+				'button_label' => 'Ajouter une ligne',
+				'sub_fields'   => array(
+					array( 'key' => 'field_cb_intro_texte', 'name' => 'texte', 'label' => 'Texte (noir)', 'type' => 'text' ),
+					array( 'key' => 'field_cb_intro_texte_bleu', 'name' => 'texte_bleu', 'label' => 'Texte (bleu, suite de la phrase)', 'type' => 'text' ),
+				),
+			),
+			array( 'key' => 'field_cb_profil_vision_titre', 'name' => 'vision_titre', 'label' => 'Titre bloc « Notre vision »', 'type' => 'text', 'default_value' => 'Notre vision' ),
+			array( 'key' => 'field_cb_profil_vision_image', 'name' => 'vision_image', 'label' => 'Image bloc « Notre vision »', 'type' => 'image', 'return_format' => 'id' ),
+			array( 'key' => 'field_cb_profil_vision_texte', 'name' => 'vision_texte', 'label' => 'Texte bloc « Notre vision »', 'type' => 'wysiwyg', 'media_upload' => 0 ),
+			array( 'key' => 'field_cb_profil_mission_titre', 'name' => 'mission_titre', 'label' => 'Titre bloc « Notre mission »', 'type' => 'text', 'default_value' => 'Notre mission' ),
+			array( 'key' => 'field_cb_profil_mission_image', 'name' => 'mission_image', 'label' => 'Image bloc « Notre mission »', 'type' => 'image', 'return_format' => 'id' ),
+			array( 'key' => 'field_cb_profil_mission_texte', 'name' => 'mission_texte', 'label' => 'Texte bloc « Notre mission »', 'type' => 'wysiwyg', 'media_upload' => 0 ),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-profil.php' ),
+			),
+		),
+	) );
+
+	/* -----------------------------------------------------------
 	 * Pages métier (expertise-et-conseils / études-et-suivi)
 	 * --------------------------------------------------------- */
 	acf_add_local_field_group( array(
