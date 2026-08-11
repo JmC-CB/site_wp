@@ -10,10 +10,6 @@ while ( have_posts() ) : the_post();
 	$surface     = get_field( 'surface_it' );
 	$application = get_field( 'application' );
 	$livraison   = get_field( 'livraison' );
-	$galerie     = get_field( 'galerie' );
-	if ( empty( $galerie ) && has_post_thumbnail() ) {
-		$galerie = array( get_post_thumbnail_id() );
-	}
 	$realisations_page = get_page_by_path( 'realisations' );
 ?>
 
@@ -37,15 +33,8 @@ while ( have_posts() ) : the_post();
 			<?php if ( $livraison ) : ?><div><dt>Livraison</dt><dd><?php echo esc_html( $livraison ); ?></dd></div><?php endif; ?>
 		</dl>
 
+		<?php // La galerie photo est gérée via le bloc "Galerie" natif de l'éditeur, rendu ci-dessous avec le reste du contenu. ?>
 		<?php the_content(); ?>
-
-		<?php if ( $galerie ) : ?>
-		<div class="cb-real-gallery">
-			<?php foreach ( $galerie as $img_id ) : ?>
-			<?php echo wp_get_attachment_image( $img_id, 'cb-card', false, array( 'class' => 'cb-real-gallery__img' ) ); ?>
-			<?php endforeach; ?>
-		</div>
-		<?php endif; ?>
 
 	</div>
 </article>

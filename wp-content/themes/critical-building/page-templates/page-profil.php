@@ -6,7 +6,11 @@ get_header();
 
 while ( have_posts() ) : the_post();
 
-	$intro_lignes  = get_field( 'intro_lignes' );
+	// ACF gratuit n'a pas de champ Repeater : les 3 lignes d'intro sont stockées
+	// en champs "group" fixes (intro_ligne_1..3), recomposées ici en tableau.
+	$intro_lignes = array_values( array_filter( array_map( function ( $n ) {
+		return get_field( "intro_ligne_$n" );
+	}, array( 1, 2, 3 ) ) ) );
 	$vision_titre  = get_field( 'vision_titre' ) ?: 'Notre vision';
 	$vision_image  = get_field( 'vision_image' );
 	$vision_texte  = get_field( 'vision_texte' );

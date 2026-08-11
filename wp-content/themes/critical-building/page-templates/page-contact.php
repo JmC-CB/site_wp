@@ -60,7 +60,7 @@ while ( have_posts() ) : the_post();
 
 <section class="cb-contact-map-section">
 	<div class="cb-container">
-		<div id="cb-map" class="cb-map" aria-label="Carte du siège de Critical Building"></div>
+		<?php cb_render_map( null, 'Carte des bureaux Critical Building' ); ?>
 	</div>
 </section>
 

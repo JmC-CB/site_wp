@@ -25,7 +25,7 @@ $realisations = new WP_Query( array(
 				$surface     = get_field( 'surface_it' );
 				$application = get_field( 'application' );
 				$livraison   = get_field( 'livraison' );
-				$galerie     = get_field( 'galerie' );
+				$galerie     = cb_get_content_gallery_ids( get_the_ID() );
 				if ( empty( $galerie ) && has_post_thumbnail() ) {
 					$galerie = array( get_post_thumbnail_id() );
 				}

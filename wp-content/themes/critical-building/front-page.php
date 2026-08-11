@@ -4,14 +4,26 @@
  */
 get_header();
 
-$slides          = get_field( 'hero_slides' );
+// ACF gratuit n'a pas de champ Repeater : les segments clients et logos
+// partenaires sont stockés en champs "group" fixes (client_1..3, partenaire_1..6)
+// et recomposés ici en tableaux pour garder les mêmes boucles d'affichage.
+// Le slider hero utilise le bloc "Galerie" natif de l'éditeur (comme pour les
+// galeries de réalisations) : nombre de photos libre, réordonnable au glisser-déposer.
+$slides = array_map( function ( $id ) {
+	return array( 'image' => $id );
+}, cb_get_content_gallery_ids( get_the_ID() ) );
+
 $qsn_heading     = get_field( 'qsn_heading' ) ?: 'qui sommes-nous ?';
 $qsn_texte       = get_field( 'qsn_texte' );
 $metiers_heading = get_field( 'metiers_heading' ) ?: 'nos métiers';
 $clients_heading = get_field( 'clients_heading' ) ?: 'Nos clients';
-$clients_blocks  = get_field( 'clients_blocks' );
+$clients_blocks  = array_values( array_filter( array_map( function ( $n ) {
+	return get_field( "client_$n" );
+}, array( 1, 2, 3 ) ) ) );
 $clients_citation = get_field( 'clients_citation' );
-$partenaires     = get_field( 'partenaires' );
+$partenaires     = array_values( array_filter( array_map( function ( $n ) {
+	return get_field( "partenaire_$n" );
+}, array( 1, 2, 3, 4, 5, 6 ) ) ) );
 $profil_page     = get_page_by_path( 'profil' );
 $realisations_page = get_page_by_path( 'realisations' );
 

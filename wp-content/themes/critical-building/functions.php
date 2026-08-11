@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CB_THEME_VERSION', '1.2.8' );
+define( 'CB_THEME_VERSION', '1.3.3' );
 define( 'CB_THEME_DIR', get_template_directory() );
 define( 'CB_THEME_URI', get_template_directory_uri() );
 
@@ -43,16 +43,16 @@ function cb_enqueue_assets() {
 
 	wp_enqueue_script( 'cb-main', CB_THEME_URI . '/assets/js/main.js', array(), CB_THEME_VERSION, true );
 
-	// Leaflet (uniquement sur la page contact)
+	// Leaflet (uniquement sur la page contact — une page peut afficher plusieurs
+	// cartes .cb-map, chacune avec ses propres marqueurs via data-markers).
 	if ( is_page_template( 'page-templates/page-contact.php' ) ) {
 		wp_enqueue_style( 'leaflet', CB_THEME_URI . '/assets/vendor/leaflet/leaflet.css', array(), '1.9.4' );
 		wp_enqueue_script( 'leaflet', CB_THEME_URI . '/assets/vendor/leaflet/leaflet.js', array(), '1.9.4', true );
 		wp_enqueue_script( 'cb-map', CB_THEME_URI . '/assets/js/map.js', array( 'leaflet' ), CB_THEME_VERSION, true );
 
-		wp_localize_script( 'cb-map', 'cbMapData', array(
-			'lat'     => function_exists( 'get_field' ) ? get_field( 'siege_latitude', 'option' ) : 48.7906,
-			'lng'     => function_exists( 'get_field' ) ? get_field( 'siege_longitude', 'option' ) : 2.2887,
-			'popup'   => function_exists( 'get_field' ) ? get_field( 'siege_adresse', 'option' ) : '',
+		// Réglages partagés par toutes les cartes de la page (icônes, fond de carte) —
+		// les marqueurs eux-mêmes sont propres à chaque carte, voir cb_render_map().
+		wp_localize_script( 'cb-map', 'cbMapAssets', array(
 			'tileUrl' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			'attrib'  => '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 			'icon'    => CB_THEME_URI . '/assets/vendor/leaflet/images/marker-icon.png',

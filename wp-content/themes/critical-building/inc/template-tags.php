@@ -54,6 +54,82 @@ function cb_tel_href( $phone ) {
 }
 
 /**
+ * Récupère les IDs d'images du (premier) bloc Galerie natif WordPress présent
+ * dans le contenu d'un post — remplace le champ ACF "gallery" (réservé à ACF PRO)
+ * par le bloc Galerie natif de l'éditeur, administrable sans dépendance PRO.
+ */
+function cb_get_content_gallery_ids( $post_id ) {
+	$post = get_post( $post_id );
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return array();
+	}
+
+	$ids = array();
+	$walk = function ( $blocks ) use ( &$walk, &$ids ) {
+		foreach ( $blocks as $block ) {
+			if ( 'core/gallery' === $block['blockName'] && ! empty( $block['innerBlocks'] ) ) {
+				foreach ( $block['innerBlocks'] as $image_block ) {
+					if ( 'core/image' === $image_block['blockName'] && ! empty( $image_block['attrs']['id'] ) ) {
+						$ids[] = (int) $image_block['attrs']['id'];
+					}
+				}
+			} elseif ( ! empty( $block['innerBlocks'] ) ) {
+				$walk( $block['innerBlocks'] );
+			}
+		}
+	};
+	$walk( parse_blocks( $post->post_content ) );
+
+	return $ids;
+}
+
+/**
+ * Récupère les points de la carte configurés dans les réglages globaux
+ * (Réglages du site > champs group marqueur_1..4), en ne gardant que ceux
+ * dont le nom et les coordonnées sont renseignés.
+ */
+function cb_get_map_markers() {
+	$markers = array();
+	foreach ( array( 1, 2, 3, 4 ) as $n ) {
+		$m = get_field( "marqueur_$n", 'option' );
+		if ( empty( $m['nom'] ) || $m['latitude'] === '' || $m['longitude'] === '' ) {
+			continue;
+		}
+		$markers[] = array(
+			'lat'   => (float) $m['latitude'],
+			'lng'   => (float) $m['longitude'],
+			'popup' => trim( $m['nom'] . ( $m['adresse'] ? "\n" . $m['adresse'] : '' ) ),
+		);
+	}
+	return $markers;
+}
+
+/**
+ * Affiche une carte Leaflet. Une page peut en afficher plusieurs : chaque appel
+ * génère un id unique, main.js (map.js) initialise indépendamment tous les
+ * éléments .cb-map trouvés sur la page.
+ *
+ * @param array|null $markers Liste de ['lat'=>,'lng'=>,'popup'=>]. Par défaut,
+ *                             les points définis dans les réglages du site.
+ */
+function cb_render_map( $markers = null, $label = 'Carte' ) {
+	if ( null === $markers ) {
+		$markers = cb_get_map_markers();
+	}
+	if ( empty( $markers ) ) {
+		return;
+	}
+	static $i = 0;
+	$i++;
+	printf(
+		'<div class="cb-map" id="cb-map-%d" data-markers=\'%s\' aria-label="%s"></div>',
+		$i,
+		esc_attr( wp_json_encode( array_values( $markers ) ) ),
+		esc_attr( $label )
+	);
+}
+
+/**
  * Affiche le formulaire Contact Form 7 du site (shortcode).
  */
 function cb_render_contact_form() {

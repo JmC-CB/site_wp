@@ -512,7 +512,7 @@ h1, h2, h3, h4, h5, h6 {
 .cb-contact-statement p:last-child { margin-bottom: 0; }
 
 .cb-contact-map-section { padding: 130px 0 100px; }
-.cb-map { height: 400px; border-radius: var(--cb-radius); overflow: hidden; background: var(--cb-gray-light); }
+.cb-map { height: 600px; border-radius: var(--cb-radius); overflow: hidden; background: var(--cb-gray-light); }
 
 @media (max-width: 767px) {
 	.cb-contact-hero { height: 320px; }
