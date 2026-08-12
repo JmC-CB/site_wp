@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CB_THEME_VERSION', '1.4.4' );
+define( 'CB_THEME_VERSION', '1.4.5' );
 define( 'CB_THEME_DIR', get_template_directory() );
 define( 'CB_THEME_URI', get_template_directory_uri() );
 

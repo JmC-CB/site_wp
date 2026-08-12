@@ -12,8 +12,18 @@ $realisations = new WP_Query( array(
 ) );
 ?>
 
-<?php while ( have_posts() ) : the_post(); ?>
-<?php cb_page_title_band(); ?>
+<?php while ( have_posts() ) : the_post();
+	$hero_url = has_post_thumbnail() ? get_the_post_thumbnail_url( get_the_ID(), 'cb-hero' ) : '';
+?>
+
+<header class="cb-real-hero" <?php if ( $hero_url ) : ?>style="background-image:url('<?php echo esc_url( $hero_url ); ?>');"<?php endif; ?>></header>
+
+<div class="cb-rejoindre-title">
+	<div class="cb-container">
+		<h1 class="cb-rejoindre-title__text"><?php the_title(); ?></h1>
+	</div>
+</div>
+
 <?php endwhile; ?>
 
 <section class="cb-section cb-realisations">

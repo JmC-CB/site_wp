@@ -378,6 +378,11 @@ h1, h2, h3, h4, h5, h6 {
 .cb-page-content__children { margin-top: 48px; }
 
 /* ---------- 12. Réalisations ---------- */
+/* Photo pleine largeur sans teinte, suivie d'un bandeau titre séparé (mêmes classes .cb-rejoindre-title que Nous rejoindre) */
+.cb-real-hero { height: 583px; background-color: var(--cb-navy); background-size: cover; background-position: 50%; }
+@media (max-width: 767px) {
+	.cb-real-hero { height: 320px; }
+}
 .cb-realisations__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 30px; }
 .cb-real-card__media { position: relative; overflow: hidden; border-radius: var(--cb-radius); }
 .cb-real-card__img { width: 100%; height: 260px; object-fit: cover; transition: transform .5s ease; }
