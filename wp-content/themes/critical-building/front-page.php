@@ -73,7 +73,7 @@ $metier_pages = get_posts( array(
 		<div class="cb-qsn__body">
 			<?php echo apply_filters( 'the_content', $qsn_texte ); ?>
 			<?php if ( $profil_page ) : ?>
-			<a class="cb-btn cb-btn--mt" href="<?php echo esc_url( get_permalink( $profil_page ) ); ?>"><?php cb_l10n_e( 'En savoir plus', 'Learn more' ); ?></a>
+			<a class="cb-btn cb-btn--mt" href="<?php echo esc_url( cb_translated_permalink( $profil_page->ID ) ); ?>"><?php cb_l10n_e( 'En savoir plus', 'Learn more' ); ?></a>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -113,7 +113,7 @@ $metier_pages = get_posts( array(
 		</div>
 		<div class="cb-clients__grid">
 			<?php if ( $clients_blocks ) : foreach ( $clients_blocks as $block ) : ?>
-			<a class="cb-client-card" href="<?php echo esc_url( $realisations_page ? get_permalink( $realisations_page ) : home_url( '/realisations/' ) ); ?>">
+			<a class="cb-client-card" href="<?php echo esc_url( $realisations_page ? cb_translated_permalink( $realisations_page->ID ) : home_url( '/realisations/' ) ); ?>">
 				<?php echo wp_get_attachment_image( $block['image'], 'cb-card', false, array( 'class' => 'cb-client-card__img' ) ); ?>
 				<div class="cb-client-card__body">
 					<h3><?php echo esc_html( $block['titre'] ); ?></h3>
@@ -129,7 +129,7 @@ $metier_pages = get_posts( array(
 		<?php endif; ?>
 
 		<div class="cb-clients__cta">
-			<a class="cb-btn cb-btn--inverse" href="<?php echo esc_url( $realisations_page ? get_permalink( $realisations_page ) : home_url( '/realisations/' ) ); ?>"><?php cb_l10n_e( 'Nos réalisations', 'Our projects' ); ?></a>
+			<a class="cb-btn cb-btn--inverse" href="<?php echo esc_url( $realisations_page ? cb_translated_permalink( $realisations_page->ID ) : home_url( '/realisations/' ) ); ?>"><?php cb_l10n_e( 'Nos réalisations', 'Our projects' ); ?></a>
 		</div>
 	</div>
 </section>

@@ -45,13 +45,13 @@ $realisations = new WP_Query( array(
 					<?php if ( has_post_thumbnail() ) : the_post_thumbnail( 'cb-card', array( 'class' => 'cb-real-card__img' ) ); endif; ?>
 					<div class="cb-real-card__overlay">
 						<button type="button" class="cb-real-card__gallery-btn cb-btn-plus" data-gallery="real-<?php the_ID(); ?>">
-							<?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label">Voir les photos</span>
+							<?php echo cb_icon( 'circle-arrow' ); ?> <span class="cb-btn-plus__label"><?php cb_l10n_e( 'Voir les photos', 'View photos' ); ?></span>
 						</button>
 						<div class="cb-real-card__infos">
-							<?php if ( $profil ) : ?>Profil client : <?php echo esc_html( $profil ); ?><br><?php endif; ?>
-							<?php if ( $surface ) : ?>Surface IT : <?php echo esc_html( $surface ); ?><br><?php endif; ?>
+							<?php if ( $profil ) : ?><?php cb_l10n_e( 'Profil client', 'Client profile' ); ?> : <?php echo esc_html( $profil ); ?><br><?php endif; ?>
+							<?php if ( $surface ) : ?><?php cb_l10n_e( 'Surface IT', 'IT floor area' ); ?> : <?php echo esc_html( $surface ); ?><br><?php endif; ?>
 							<?php if ( $application ) : ?>Application : <?php echo esc_html( $application ); ?><br><?php endif; ?>
-							<?php if ( $livraison ) : ?>Livraison : <?php echo esc_html( $livraison ); ?><?php endif; ?>
+							<?php if ( $livraison ) : ?><?php cb_l10n_e( 'Livraison', 'Delivery' ); ?> : <?php echo esc_html( $livraison ); ?><?php endif; ?>
 						</div>
 					</div>
 				</div>
@@ -73,7 +73,7 @@ $realisations = new WP_Query( array(
 			</div>
 			<?php endif; ?>
 			<?php endwhile; wp_reset_postdata(); else : ?>
-			<p><?php esc_html_e( 'Aucune réalisation publiée pour le moment.', 'critical-building' ); ?></p>
+			<p><?php cb_l10n_e( 'Aucune réalisation publiée pour le moment.', 'No projects published yet.' ); ?></p>
 			<?php endif; ?>
 		</div>
 	</div>

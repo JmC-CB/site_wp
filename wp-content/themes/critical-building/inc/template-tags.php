@@ -38,6 +38,31 @@ function cb_l10n_e( $fr, $en ) {
 }
 
 /**
+ * Permalien vers la traduction (langue courante) d'une page identifiée par son ID
+ * en français — évite de renvoyer vers la version FR d'une page depuis une page EN
+ * quand le lien est construit via get_page_by_path()/ID en dur (qui ne tient pas
+ * compte de la langue courante). Retombe sur la page FR (ou $fallback_url) si aucune
+ * traduction n'existe pour la langue courante (ex. Réalisations, Nous rejoindre).
+ */
+function cb_translated_permalink( $fr_page_id, $fallback_url = '' ) {
+	if ( ! $fr_page_id ) {
+		return $fallback_url;
+	}
+	$target_id = $fr_page_id;
+	if ( function_exists( 'pll_get_post' ) && function_exists( 'pll_current_language' ) ) {
+		$lang = pll_current_language();
+		if ( $lang ) {
+			$translated = pll_get_post( $fr_page_id, $lang );
+			if ( $translated ) {
+				$target_id = $translated;
+			}
+		}
+	}
+	$permalink = get_permalink( $target_id );
+	return $permalink ?: $fallback_url;
+}
+
+/**
  * Icônes SVG inline (currentColor) utilisées dans le thème.
  */
 function cb_icon( $name ) {
